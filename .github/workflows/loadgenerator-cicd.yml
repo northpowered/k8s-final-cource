@@ -9,6 +9,26 @@ on:
     branches: [ "main" ]
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      repo: ${{ steps.vars.outputs.repo }}
+      tag: ${{ steps.vars.outputs.tag }}
+    steps:
+      - name: Use repository
+        uses: actions/checkout@v2
+      - name: Build variables
+        id: vars
+        run: |
+          echo "::set-output name=repo::$GITHUB_REPOSITORY"
+          echo "::set-output name=tag::$(git rev-parse --short "$GITHUB_SHA")"
+      - name: Upload repository
+        uses: actions/upload-artifact@v2
+        with:
+          name: repository
+          path: |
+            ${{ github.workspace }}/src
+
 
   build:
 
