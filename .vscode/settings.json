@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/networking.k8s.io/v1@ingress": "file:///home/northstar/projects/k8s-final-cource/src/ingress/01-ingress.yaml"
+    }
+}
