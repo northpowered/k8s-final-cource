@@ -27,7 +27,7 @@ jobs:
         with:
           name: repository
           path: |
-            ${{ github.workspace }}/.
+            ${{ github.workspace }}/src
 
 
   build:
@@ -91,10 +91,10 @@ jobs:
           pwd
           ls -l
       - name: Lint helm charts
-        run: helm lint ./src/loadgenerator/helm/
+        run: helm lint ./loadgenerator/helm/
       - name: Deploy
         run: |
-          helm upgrade loadgenerator ./src/loadgenerator/helm/
+          helm upgrade loadgenerator ./loadgenerator/helm/
 
 
   # deployment:
