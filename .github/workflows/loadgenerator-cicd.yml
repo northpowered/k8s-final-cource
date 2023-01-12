@@ -86,10 +86,10 @@ jobs:
           mv linux-amd64/helm /usr/local/bin/helm
           helm version
       - name: Lint helm charts
-        run: helm lint ./src/loadgenerator/helm/
+        run: helm lint ${{ github.workspace }}/src/loadgenerator/helm/
       - name: Deploy
         run: |
-          helm upgrade loadgenerator ./src/loadgenerator/helm/
+          helm upgrade loadgenerator ${{ github.workspace }}/src/loadgenerator/helm/
 
 
   # deployment:
