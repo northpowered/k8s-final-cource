@@ -41,10 +41,8 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        # list of Docker images to use as base name for tags
         images: |
           ghcr.io/${{ github.repository_owner }}/loadgenerator
-        # generate Docker tags based on the following events/attributes
         tags: |
           type=schedule
           type=ref,event=branch
@@ -80,36 +78,14 @@ jobs:
           mkdir -p $HOME/.kube/
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
-      - name: Show config
-        run: cat $HOME/.kube/config
       - name: Install helm
         run: |
           curl -LO https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
           tar -zxvf helm-v3.8.0-linux-amd64.tar.gz
           mv linux-amd64/helm /usr/local/bin/helm
           helm version
-      - name: show dir
-        run: |
-          pwd
-          ls -l
       - name: Lint helm charts
         run: helm lint ./loadgenerator/helm/
       - name: Deploy
         run: |
           helm upgrade loadgenerator ./loadgenerator/helm/
-
-
-  # deployment:
-  #   runs-on: 'ubuntu-latest'
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v1
-  #   - name: Deploy
-  #     uses: deliverybot/helm@master
-  #     with:
-  #       token: ${{ github.token }}
-  #       chart: src/loadgenerator/helm
-  #       namespace: default
-  #       release: loadgenerator
-  #     env:
-  #       KUBECONFIG_FILE: echo ${{ secrets.KUBECONFIG }} | base64 -d
