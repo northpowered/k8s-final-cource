@@ -520,6 +520,9 @@ spec:
     metadata:
       labels:
         app: loadgenerator
+        app.kubernetes.io/managed-by: Helm
+        meta.helm.sh/release-name: loadgenerator
+        meta.helm.sh/release-namespace: default
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:

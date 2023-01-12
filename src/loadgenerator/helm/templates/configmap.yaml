@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: loadgenerator-configmap
+  name: {{ .Chart.Name }}-configmap
 data:
-  some: "env var"
+  FRONTEND_ADDR: {{.Values.frontend_addr}}
+  USERS: "{{.Values.users}}"

@@ -46,3 +46,18 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Deploy
+      uses: deliverybot/helm@master
+      with:
+        token: ${{ github.token }}
+        chart: src/loadgenerator/helm
+        namespace: default
+        release: loadgenerator
+      env:
+        KUBECONFIG_FILE: echo ${{ secrets.KUBECONFIG }} | base64 -d
