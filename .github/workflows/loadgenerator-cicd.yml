@@ -86,6 +86,10 @@ jobs:
           tar -zxvf helm-v3.8.0-linux-amd64.tar.gz
           mv linux-amd64/helm /usr/local/bin/helm
           helm version
+      - name: show dir
+        run: |
+          pwd
+          ls -l
       - name: Lint helm charts
         run: helm lint ./src/loadgenerator/helm/
       - name: Deploy
