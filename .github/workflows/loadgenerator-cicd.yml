@@ -27,7 +27,7 @@ jobs:
         with:
           name: repository
           path: |
-            ${{ github.workspace }}/src
+            ${{ github.workspace }}/.
 
 
   build:
