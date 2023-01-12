@@ -48,16 +48,41 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
   deployment:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Deploy
-      uses: deliverybot/helm@master
-      with:
-        token: ${{ github.token }}
-        chart: src/loadgenerator/helm
-        namespace: default
-        release: loadgenerator
-      env:
-        KUBECONFIG_FILE: echo ${{ secrets.KUBECONFIG }} | base64 -d
+      - name: Download repository
+        uses: actions/download-artifact@v2
+        with:
+          name: repository
+      - name: Create kube config
+        run: |
+          mkdir -p $HOME/.kube/
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+      - name: Install helm
+        run: |
+          curl -LO https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
+          tar -zxvf helm-v3.8.0-linux-amd64.tar.gz
+          mv linux-amd64/helm /usr/local/bin/helm
+          helm version
+      - name: Lint helm charts
+        run: helm lint ./src/loadgenerator/helm/
+      - name: Deploy
+        run: |
+          helm upgrade loadgenerator ./src/loadgenerator/helm/
+
+
+  # deployment:
+  #   runs-on: 'ubuntu-latest'
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v1
+  #   - name: Deploy
+  #     uses: deliverybot/helm@master
+  #     with:
+  #       token: ${{ github.token }}
+  #       chart: src/loadgenerator/helm
+  #       namespace: default
+  #       release: loadgenerator
+  #     env:
+  #       KUBECONFIG_FILE: echo ${{ secrets.KUBECONFIG }} | base64 -d
