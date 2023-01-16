@@ -1,0 +1,12 @@
+site_name: K8S cource final
+theme:
+  name: material
+  features:
+    - navigation.tracking
+
+repo_url: https://github.com/northpowered/k8s-final-cource
+repo_name: northpowered/k8s-final-cource
+
+
+plugins:
+  - tags
