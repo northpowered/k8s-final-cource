@@ -18,4 +18,6 @@ COPY locustfile.py .
 # enable gevent support in debugger
 ENV GEVENT_SUPPORT=True
 
-ENTRYPOINT locust --host="http://${FRONTEND_ADDR}" --headless -u "${USERS:-100000}" 2>&1
+ENTRYPOINT locust --host="http://frontend:80" --headless -u "${USERS:-100000}" 2>&1
+
+#ENTRYPOINT locust --host="http://${FRONTEND_ADDR}" --headless -u "${USERS:-100000}" 2>&1
