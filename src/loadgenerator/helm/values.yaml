@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 frontend_addr: "frontend:80"
-users: 100000
+users: "100000"
 
 
 replicaCount: 1
