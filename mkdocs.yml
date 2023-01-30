@@ -3,6 +3,9 @@ theme:
   name: material
   features:
     - navigation.tracking
+    - navigation.instant
+    - navigation.sections
+    - navigation.indexes
 
 repo_url: https://github.com/northpowered/k8s-final-cource
 repo_name: northpowered/k8s-final-cource
@@ -10,3 +13,18 @@ repo_name: northpowered/k8s-final-cource
 
 plugins:
   - tags
+
+nav:
+  - index.md
+  - Tasks:
+    - Cluster deployment: tasks/cluster_deployment.md
+    - Services deployment: tasks/services_deployment.md
+    - Monitoring: tasks/monitoring_configuration.md
+    - Logs: tasks/logs_configuration.md
+    - Autoscaling: tasks/autoscaling.md
+    - Plans: tasks/future.md
+  - Monitoring:
+    - Metrics: monitoring/metrics.md
+    - Logs: monitoring/logs.md
+    - Grafana: monitoring/grafana.md
+  - GitHub CI/CD: cicd.md
